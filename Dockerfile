@@ -17,13 +17,17 @@ COPY . .
 RUN go build -o main .
 
 # Final stage: a smaller image
-FROM golang:1.21-alpine
+FROM alpine:latest
 
 # Set the Current Working Directory inside the container
 WORKDIR /app
 
 # Copy the Pre-built binary file from the previous stage
 COPY --from=builder /app/main .
+COPY alerts.yaml .
+
+# Set the executable bit for the binary
+RUN chmod +x ./main
 
 # Command to run the executable
-CMD ["./main", "--alerts-file=./app/alerts.yaml"]
+ENTRYPOINT ["./main"]
