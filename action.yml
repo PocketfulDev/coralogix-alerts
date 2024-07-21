@@ -24,3 +24,9 @@ runs:
     CORALOGIX_PRIVATE_KEY: ${{ inputs.coralogix_private_key }}
     CORALOGIX_APPLICATION_NAME: ${{ inputs.coralogix_application_name }}
     CORALOGIX_SUBSYSTEM_NAME: ${{ inputs.coralogix_subsystem_name }}
+
+build:
+  docker:
+    - file: Dockerfile
+      args:
+        ALERTS_FILE_PATH: ${{ inputs.alerts_file_path }}

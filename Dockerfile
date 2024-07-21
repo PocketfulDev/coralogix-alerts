@@ -24,7 +24,11 @@ WORKDIR /app
 
 # Copy the Pre-built binary file from the previous stage
 COPY --from=builder /app/main .
+
+# Copy the alerts.yaml file from the build context
+ARG ALERTS_FILE_PATH
 COPY alerts.yaml .
+COPY ${ALERTS_FILE_PATH} /app/alerts.yaml
 
 # Set the executable bit for the binary
 RUN chmod +x ./main
