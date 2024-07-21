@@ -26,4 +26,4 @@ WORKDIR /app
 COPY --from=builder /app/main .
 
 # Command to run the executable
-CMD ["./main"]
+CMD ["./main", "--alerts-file=./app/alerts.yaml"]
