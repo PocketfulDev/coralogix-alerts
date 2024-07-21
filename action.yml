@@ -1,0 +1,29 @@
+name: 'Coralogix Alert Setup'
+description: 'A GitHub Action to set up Coralogix alerts from a YAML configuration file'
+author: 'Your Name'
+
+inputs:
+  coralogix_private_key:
+    description: 'The Coralogix private key'
+    required: true
+  coralogix_application_name:
+    description: 'The Coralogix application name'
+    required: true
+  coralogix_subsystem_name:
+    description: 'The Coralogix subsystem name'
+    required: true
+  alerts_file_path:
+    description: 'Path to the alerts YAML file'
+    required: true
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+
+  env:
+    CORALOGIX_PRIVATE_KEY: ${{ inputs.coralogix_private_key }}
+    CORALOGIX_APPLICATION_NAME: ${{ inputs.coralogix_application_name }}
+    CORALOGIX_SUBSYSTEM_NAME: ${{ inputs.coralogix_subsystem_name }}
+
+  args:
+    - "--alerts-file=${{ inputs.alerts_file_path }}"
