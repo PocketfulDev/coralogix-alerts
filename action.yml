@@ -18,15 +18,12 @@ inputs:
 
 runs:
   using: 'docker'
-  image: 'Dockerfile'
+  image: 'jonathanpick/coralogics-create-alert:v1'
 
   env:
     CORALOGIX_PRIVATE_KEY: ${{ inputs.coralogix_private_key }}
     CORALOGIX_APPLICATION_NAME: ${{ inputs.coralogix_application_name }}
     CORALOGIX_SUBSYSTEM_NAME: ${{ inputs.coralogix_subsystem_name }}
 
-build:
-  docker:
-    - file: Dockerfile
-      args:
-        ALERTS_FILE_PATH: ${{ inputs.alerts_file_path }}
+  args:
+    - "--alerts-file=${{ inputs.alerts_file_path }}"
